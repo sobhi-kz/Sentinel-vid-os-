@@ -1,0 +1,13 @@
+<speak>
+  <mark name="scene1"/>Regarde cette petite graine, elle rêve de voir le monde !
+  <break time="300ms"/>
+  <mark name="scene2"/>La graine boit de la pluie et se prépare à germer. Oh, elle frémit !
+  <break time="300ms"/>
+  <mark name="scene3"/>Le soleil lui dit : 'Bonjour, je vais t'aider à grandir'.
+  <break time="300ms"/>
+  <mark name="scene4"/>Un ver de terre lui donne un coup de main pour faire de la place dans la terre.
+  <break time="300ms"/>
+  <mark name="scene5"/>La pousse devient une petite plante : elle fait une feuille après l'autre.
+  <break time="300ms"/>
+  <mark name="scene6"/>Conclusion : avec de l'eau, du soleil et des amis, tout grandit — et toi aussi !
+</speak>

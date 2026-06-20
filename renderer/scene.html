@@ -1,0 +1,64 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Sentinel Scene</title>
+  <style>
+    body { margin: 0; background: #87CEEB; overflow: hidden; }
+    canvas { display:block; }
+    .overlay { position:absolute; top:20px; left:20px; font-family: sans-serif; color: white; text-shadow:0 1px 3px rgba(0,0,0,0.6); width: 90%; }
+  </style>
+</head>
+<body>
+  <div class="overlay" id="overlay"></div>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.153.0/build/three.min.js"></script>
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const text = params.get('text') || 'Une histoire Sentinel';
+    const duration = parseFloat(params.get('duration') || '10');
+    const fps = parseInt(params.get('fps') || '30');
+
+    document.getElementById('overlay').innerText = text;
+
+    let width = 1080, height = 1920;
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(45, width/height, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer({ preserveDrawingBuffer: true, antialias: true });
+    renderer.setSize(width, height);
+    document.body.appendChild(renderer.domElement);
+
+    const light = new THREE.DirectionalLight(0xffffff, 1);
+    light.position.set(5,10,7);
+    scene.add(light);
+
+    const ground = new THREE.Mesh(new THREE.PlaneGeometry(20, 20), new THREE.MeshStandardMaterial({color:0x88cc88}));
+    ground.rotation.x = -Math.PI/2;
+    ground.position.y = -1.5;
+    scene.add(ground);
+
+    const head = new THREE.Mesh(new THREE.SphereGeometry(1,32,32), new THREE.MeshStandardMaterial({color:0xffddaa}));
+    head.position.set(0,0,0);
+    scene.add(head);
+
+    const body = new THREE.Mesh(new THREE.CylinderGeometry(0.8,1.2,2,32), new THREE.MeshStandardMaterial({color:0x2233aa}));
+    body.position.set(0,-1.6,0);
+    scene.add(body);
+
+    camera.position.set(0,0,7);
+
+    function animate(delta) {
+      head.scale.y = 1 + 0.02 * Math.sin(Date.now()/300);
+      body.rotation.y += delta * 0.1;
+    }
+
+    window.__SENTINEL_READY = false;
+    window.advanceFrame = function(dt) {
+      animate(dt);
+      renderer.render(scene, camera);
+    };
+
+    renderer.render(scene, camera);
+    window.__SENTINEL_READY = true;
+  </script>
+</body>
+</html>
