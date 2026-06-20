@@ -1,0 +1,13 @@
+<speak>
+  <mark name="scene1"/>Tu sais quand tout peut partir en vrille en une seconde ?
+  <break time="300ms"/>
+  <mark name="scene2"/>Max tente un flip devant ses potes mais son skate dérape.
+  <break time="300ms"/>
+  <mark name="scene3"/>Plutôt que de tomber, il fait une roulade stylée et se relève comme si c'était prévu.
+  <break time="300ms"/>
+  <mark name="scene4"/>Les potes exagèrent les applaudissements et commencent à chanter une chanson drôle.
+  <break time="300ms"/>
+  <mark name="scene5"/>Une personne filme et poste la vidéo : en dix minutes, c'est viral.
+  <break time="300ms"/>
+  <mark name="scene6"/>Conclusion : parfois, le meilleur trick, c'est de savoir improviser.
+</speak>

@@ -1,0 +1,64 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Sentinel - UI</title>
+    <style>
+      body { font-family: system-ui, sans-serif; padding: 24px; max-width: 720px; margin: auto; }
+      textarea { width: 100%; height: 120px; }
+      input, button { padding: 8px; margin-top: 8px; }
+      .video-preview { margin-top: 16px; }
+    </style>
+  </head>
+  <body>
+    <h1>Sentinel - Générateur d'histoires (MVP)</h1>
+    <p>Entrez un titre ou prompt en français et générez une vidéo de ~60s.</p>
+    <input id="title" placeholder="Titre (optionnel)" />
+    <textarea id="prompt" placeholder="Prompt / description (si vide, le titre sera utilisé)"></textarea>
+    <br />
+    <button id="gen">Générer le storyboard</button>
+    <button id="render">Lancer le rendu</button>
+
+    <pre id="out"></pre>
+
+    <div class="video-preview" id="preview"></div>
+
+    <script>
+      const out = document.getElementById('out');
+      let lastStoryId = null;
+
+      document.getElementById('gen').onclick = async () => {
+        const title = document.getElementById('title').value;
+        const prompt = document.getElementById('prompt').value;
+        out.innerText = 'Génération en cours...';
+        const res = await fetch('/api/stories', {
+          method: 'POST',
+          headers: {'Content-Type':'application/json'},
+          body: JSON.stringify({ title, prompt })
+        });
+        const data = await res.json();
+        out.innerText = JSON.stringify(data, null, 2);
+        lastStoryId = data.story.id;
+      };
+
+      document.getElementById('render').onclick = async () => {
+        if (!lastStoryId) return alert('Générez d\'abord le storyboard');
+        out.innerText = 'En queue pour rendu...';
+        const res = await fetch(`/api/stories/${lastStoryId}/render`, { method: 'POST' });
+        const data = await res.json();
+        out.innerText = JSON.stringify(data, null, 2);
+        const poll = setInterval(async () => {
+          const s = await (await fetch(`/api/stories/${lastStoryId}/status`)).json();
+          out.innerText = JSON.stringify(s, null, 2);
+          const videoCheck = await fetch(`/api/stories/${lastStoryId}/video`);
+          if (videoCheck.status === 200) {
+            clearInterval(poll);
+            const videoUrl = `/api/stories/${lastStoryId}/video`;
+            document.getElementById('preview').innerHTML = `<video width="360" controls src="${videoUrl}"></video>`;
+            out.innerText = 'Vidéo prête';
+          }
+        }, 5000);
+      };
+    </script>
+  </body>
+</html>

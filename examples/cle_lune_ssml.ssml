@@ -1,0 +1,13 @@
+<speak>
+  <mark name="scene1"/>La nuit cache parfois des choses que le jour oublie.
+  <break time="300ms"/>
+  <mark name="scene2"/>La clé ouvre une porte dans un vieux mur — derrière, un couloir éclairé d'une bougie.
+  <break time="300ms"/>
+  <mark name="scene3"/>Des symboles sur le sol guident la marche ; le silence est pesant.
+  <break time="300ms"/>
+  <mark name="scene4"/>Une voix chuchote une date qu'on ne comprend pas tout de suite.
+  <break time="300ms"/>
+  <mark name="scene5"/>La clé s'illumine et révèle une carte cachée — quelque chose attend d'être découvert.
+  <break time="300ms"/>
+  <mark name="scene6"/>Et si le plus grand secret était juste au coin de ta rue ?
+</speak>
